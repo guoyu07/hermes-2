@@ -45,13 +45,14 @@ type ListEvent struct {
 	ResourceTypeDeprecated string `json:"resource_type"`           // target.typeURI
 	ResourceNameDeprecated string `json:"resource_name,omitempty"` // drop
 	// NEW:
-	ID        string      `json:"id"`
-	Time      string      `json:"eventTime"`
-	Action    string      `json:"action"`
-	Outcome   string      `json:"outcome"`
-	Initiator ResourceRef `json:"initiator"`
-	Target    ResourceRef `json:"target"`
-	Observer  ResourceRef `json:"observer"`
+	ID          string      `json:"id"`
+	Time        string      `json:"eventTime"`
+	Action      string      `json:"action"`
+	Outcome     string      `json:"outcome"`
+	Initiator   ResourceRef `json:"initiator"`
+	Target      ResourceRef `json:"target"`
+	Observer    ResourceRef `json:"observer"`
+	Attachments []string    `json:"attachments,omitempty"`
 }
 
 // FieldOrder maps the sort Fieldname and Order
@@ -70,6 +71,7 @@ type EventFilter struct {
 	Action        string
 	Outcome       string
 	Time          map[string]string
+	Attachments   []string
 	Offset        uint
 	Limit         uint
 	Sort          []FieldOrder
@@ -124,6 +126,7 @@ func storageFilter(filter *EventFilter, keystoneDriver identity.Identity, eventS
 		TargetID:      filter.TargetID,
 		Action:        filter.Action,
 		Outcome:       filter.Outcome,
+		Attachments:   filter.Attachments,
 		Time:          filter.Time,
 		Offset:        filter.Offset,
 		Limit:         filter.Limit,

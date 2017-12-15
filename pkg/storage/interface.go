@@ -81,6 +81,7 @@ type EventFilter struct {
 	InitiatorType string
 	Action        string
 	Outcome       string
+	Attachments   []string
 	Time          map[string]string
 	Offset        uint
 	Limit         uint
@@ -122,11 +123,12 @@ type EventDetail struct {
 		} `json:"host,omitempty"`
 	} `json:"initiator"`
 	Target struct {
-		TypeURI     string `json:"typeURI"`
-		ID          string `json:"id"`
-		Name        string `json:"name,omitempty"`
-		ProjectID   string `json:"project_id,omitempty"`
-		DomainID    string `json:"domain_id,omitempty"`
+		TypeURI   string `json:"typeURI"`
+		ID        string `json:"id"`
+		Name      string `json:"name,omitempty"`
+		ProjectID string `json:"project_id,omitempty"`
+		DomainID  string `json:"domain_id,omitempty"`
+		//TODO - Remove this? Not sure any documents use it, going to top of the tree.
 		Attachments []struct {
 			Content     string `json:"content"`
 			ContentType string `json:"contentType"`
@@ -137,7 +139,11 @@ type EventDetail struct {
 		TypeURI string `json:"typeURI"`
 		ID      string `json:"id"`
 	} `json:"observer"`
-	// TODO: attachments for additional parameters
+	Attachments []struct {
+		Content     string `json:"content"`
+		ContentType string `json:"contentType"`
+		Name        string `json:"name,omitempty"`
+	} `json:"attachments,omitempty"`
 }
 
 //AttributeValueList is used for holding unique attributes
